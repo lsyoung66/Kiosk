@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>User_main</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/guidance.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/Button.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/default.css') }}">
+	<link rel="javascript" href="{{ url_for('static', filename='css/menuinfo.js') }}">
+	<link rel="javascript" href="{{ url_for('static', filename='css/default.js') }}">
+
+	<!--제이쿼리 라이브러리 로드-->
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+
+	<!-- 합쳐지고 최소화된 최신 CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+	<style type="text/css">
+	.menuinfo{
+		margin: 0;
+		transform: translate(-20%, 0%);
+		display: none;
+		justify-content: center;
+	}
+	.payment {
+		margin: 0;
+		transform: translate(-10%, 0%);
+		display: none;
+		justify-content: center;
+	}
+	.receipt {
+		margin: 0;
+		transform: translate(-13%, 0%);
+		display: none;
+		justify-content: center;
+	}
+	</style>
+
+</head>
+<body style="background-image:url({{ url_for('static', filename='image/bg.png') }}); background-size: cover;">
+	<section>
+		<article>
+			<content>
+				<br>
+				<p class="guidance_select">&nbsp원하는 메뉴를 말씀해주세요.&nbsp</p>
+			</content>
+			<content>
+				<!--content START -->
+				<div class="orderbody">
+					<!--메뉴 START -->
+					<div class="menuselect">
+						<button id="button1" style="color: #56995f; font-weight: 900;" onclick="javascript:menulist(0);" onmouseover="mouseOver1()" onmouseout="mouseOut()">햄&nbsp버&nbsp거</button>
+						<button id="button2" style="color: #56995f; font-weight: 900;" onclick="javascript:menulist(1);" onmouseover="mouseOver2()" onmouseout="mouseOut()">세&nbsp&nbsp&nbsp&nbsp&nbsp트</button>
+						<button id="button3" style="color: #56995f; font-weight: 900;" onclick="javascript:menulist(2);" onmouseover="mouseOver3()" onmouseout="mouseOut()">사&nbsp이&nbsp드</button>
+						<button id="button4" style="color: #56995f; font-weight: 900;" onclick="javascript:menulist(3);" onmouseover="mouseOver4()" onmouseout="mouseOut()">음&nbsp&nbsp&nbsp&nbsp&nbsp료</button>
+						<script>
+							function mouseOver1() {
+								document.getElementById("button1").style.color = "#e6948e";
+							}
+							function mouseOver2() {
+								document.getElementById("button2").style.color = "#ebb98a";
+							}
+							function mouseOver3() {
+								document.getElementById("button3").style.color = "#8dc3f2";
+							}
+							function mouseOver4() {
+								document.getElementById("button4").style.color = "#c18df2";
+							}
+							function mouseOut() {
+								document.getElementById("button1").style.color = "#56995f";
+								document.getElementById("button2").style.color = "#56995f";
+								document.getElementById("button3").style.color = "#56995f";
+								document.getElementById("button4").style.color = "#56995f";
+							}
+						</script>
+					</div>
+					<!--메뉴 END -->
+
+					<!-- 메뉴리스트 START -->
+					<div class="menulist">
+						<div class="hamburger" id="hamburger"></div>
+						<div clsss="set_menu" id="set_menu">
+							<h1></h1>
+						</div>
+						<div class="side" id="side">
+							<h1></h1>
+						</div>
+						<div class="beverage" id="beverage">
+							<h1></h1>
+						</div>
+					</div>
+					<!-- 메뉴리스트 END -->
+					
+					<!-- 장바구니 START -->
+					<div class="cart">
+						<table id="cart">
+							<tr>
+								<td colspan="2">
+									<br>
+									<h1 style="text-align: center;">선택내역</h1>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="cartlist" id="cartlist"></div>
+									
+								</td>
+								<td rowspan="2">
+									<div class="paybutton">
+										<input type="submit" value="결제" onclick="payClick()"><br><br>
+										<!--결제창띄우기-->
+										<input type="button" value="취소" onclick="removeCart()">
+									</div>	
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="sum" id="sum">
+
+									</td>
+								</tr>
+							</div>
+						</table>
+						<!-- 장바구니 END -->
+					</div>
+					<!--content END -->
+					<!-- 사이드 메뉴 선택창 START -->
+					<div class="menuinfo" id="menuinfo">
+						<div>
+							<div class="addselectmenu">
+								<img id="view_img" class="view_img">
+								<table>
+									<tr>
+										<td style="width:55%; text-align:left;"><span id="menu_name"></span></td>
+										<td style="width:35%; text-align:right;">
+											<input type="button" value="◀" onclick="fnCalCount('m', this);">
+											<input type="text" name="pop_out" value="1" readonly="readonly" style="text-align:center">
+											<input type="button" value="▶" onclick="fnCalCount('p',this);">
+										</td>
+									</tr>
+								</table>
+							</div>
+							<hr>
+							<div id="div_addmenu"></div>
+							<div class="addmenubutton">
+								<input type="button" value="선택완료" id="addmenuSubmit">
+								<input type="button" value="닫기" id="addmenuClose">
+							</div>
+						</div>
+					</div>
+					<!-- 사이드 메뉴 선택착 END -->
+					<!--결제수단선택창 만들기-->
+					<div class="payment" id="paystart">
+						<div>
+							<table class="D" style="width:100%;">
+								<tr>
+									<td><input type="button" value="X" onclick="closePay()"></td>
+								</tr>
+								<tr>
+									<td>
+										<h1 class="title">결제수단 선택</h1>
+									</td>
+								</tr>
+								<tbody class="tab">
+									<tr align="center">
+										<td><img class="payimg" src="{{ url_for('static', filename='image/pay/card.png') }}" width="300" height="300" onclick="choosePay(1)"></td>
+									</tr>
+									<tr align="center">
+										<td>
+											<h3>카드</h3>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<!--결제수단선택창 종료-->
+					<!--세부선택창-->
+					<div class="payment" id="paychoice">
+					</div>
+					<!--세부선택창 종료-->
+					<!--영수증 시작-->
+					<div class="receipt" id="receipt">
+					</div>
+					<!--영수증 종료-->
+				</content>
+			</article>
+		</section>
+	</body>
+	</html>

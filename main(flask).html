@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>main</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/guidance.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/Button.css') }}">
+	<style type="text/css">
+	.admin {
+		border-radius: 50%;
+	}
+	
+</style>
+<meta http-equiv="refresh" content="5">
+</head>
+<body style="background-image:url({{ url_for('static', filename='image/bg.png') }}); background-size: cover;">
+	{% if parameter == ' 음성 주문\n' %}
+	<meta http-equiv="refresh" content="0;URL='/voice'">
+	{% elif parameter == ' 터치 주문\n' %}
+	<meta http-equiv="refresh" content="0;URL='/touch'">
+	{% else %}
+	{% endif %}
+	<section>
+		<header>
+			<a class="admin" onclick="location.href='kiosk.html'"><img src="{{ url_for('static', filename='image/admin.png') }}" style="width: 17%;"> </a>
+		</header>
+		<article>
+			<br><br>
+			<content>
+				<br>
+				<p class="guidance">&nbsp&nbsp주문방식을 선택해  주세요.&nbsp&nbsp</p>
+			</content>
+			<content>
+				<button class="button1" onclick="location.href='/touch'"><img src="{{ url_for('static', filename='image/touch.png') }} " style="width: 50%;"><br>터치<br>주문</button>
+				<button class="button2" onclick="location.href='/voice'"><img src="{{ url_for('static', filename='image/speak.png') }} " style="width: 37%;"><br>음성<br>주문</button>
+			</content>
+		</article>
+	</section>
+</body>
+</html>

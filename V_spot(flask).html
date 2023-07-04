@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>User_main</title>
+	<link rel="javascript" href="{{ url_for('static', filename='css/guidance.js') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/Button.css') }}">
+
+</style>
+</head>
+<body style="background-image:url({{ url_for('static', filename='image/bg.png') }}); background-size: cover;">
+	<section>
+		<article>
+			<content>
+				<br><br><br><br><br><br><br><br>
+				<p class="guidance">&nbsp식사하실 장소를 말씀해주세요.&nbsp</p>
+			</content>
+			<content>
+				<button id="buy" class="button1" onclick="location.href='S_select.html'; javascript:takeout(false);"><img src="{{ url_for('static', filename='image/in.png') }}" style="width: 50%;"><br>매장<br>식사</button>
+				<button class="button2" onclick="location.href='S_select.html'; javascript:takeout(true);"><img src="{{ url_for('static', filename='image/out.png') }}" style="width: 50%;"><br>포장<br>하기</button>
+			</content>
+		</article>
+	</section>
+</body>
+</html>
